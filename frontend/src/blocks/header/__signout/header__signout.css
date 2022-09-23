@@ -1,0 +1,16 @@
+.header__signout {
+  max-width: 300px;
+  display: flex;
+  column-gap: 24px;
+}
+
+@media screen and (max-width: 670px) {
+  .header__signout {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 18px;
+    column-gap: 0;
+    margin: 40px auto;
+  }
+  
+}
