@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3001"
+import { serverConfig } from "./constants";
+
 
 class Auth {
   constructor({ url, headers}) {
@@ -60,7 +61,7 @@ class Auth {
 }
 
 export const auth = new Auth({
-  url: BASE_URL,
+  url: serverConfig.url,
   headers: {
     "Content-type": "application/json",
   },

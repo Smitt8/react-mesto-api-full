@@ -11,7 +11,7 @@ const { usersRoutes } = require('./routes/users');
 const ErrorNotFound = require('./utils/ErrorNotFound');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3001, FRONT_URL = 'http://localhost:3000' } = process.env;
 
 const app = express();
 
@@ -27,13 +27,19 @@ async function main() {
   app.use(express.json());
   app.use(
     cors({
-      origin: 'http://localhost:3000',
+      origin: FRONT_URL,
       credentials: true,
     }),
   );
   app.use(cookieParser());
 
   app.use(requestLogger);
+
+  app.get('/crash-test', () => {
+    setTimeout(() => {
+      throw new Error('Сервер сейчас упадёт');
+    }, 0);
+  });
 
   app.use(usersRoutes);
   app.use(cardsRoutes);
