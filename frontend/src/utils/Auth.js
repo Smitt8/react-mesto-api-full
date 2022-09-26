@@ -1,4 +1,4 @@
-const BASE_URL = "https://auth.nomoreparties.co"
+const BASE_URL = "http://localhost:3001"
 
 class Auth {
   constructor({ url, headers}) {
@@ -18,6 +18,7 @@ class Auth {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({email, password}),
+      credentials: 'include',
     })
     .then(result => {
       return this._checkResult(result);
@@ -35,16 +36,26 @@ class Auth {
     });
   }
 
-  authorize = ({jwt}) =>  {
+  authorize = () =>  {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: {...this._headers,
-        "Authorization" : `Bearer ${jwt}`},
+      headers: this._headers,
+      credentials: 'include',
     })
     .then(result => {
       return this._checkResult(result);
     });
+  }
 
+  logout = () => {
+    return fetch(`${this._url}/signout`, {
+      method: "DELETE",
+      headers: this._headers,
+      credentials: 'include',
+    })
+    .then(result => {
+      return this._checkResult(result);
+    });
   }
 }
 

@@ -47,14 +47,13 @@ function App() {
   }, [loggedIn]);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-
-    if (jwt) {
+    const authorized = localStorage.getItem('auth');
+    if (authorized) {
       auth
-        .authorize({ jwt })
+        .authorize()
         .then((res) => {
           setLoggedIn(true);
-          setUserEmail(res.data.email);
+          setUserEmail(res.email);
           history.push("/");
         })
         .catch((err) => {
@@ -119,11 +118,11 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
+        console.log(newCard);
         setCards((cards) =>
           cards.map((c) => (c._id === card._id ? newCard : c))
         );
@@ -167,8 +166,7 @@ function App() {
     auth
       .login(data)
       .then((res) => {
-        const token = res.token;
-        localStorage.setItem("jwt", token);
+        localStorage.setItem('auth', true);
         setUserEmail(data.username);
         setLoggedIn(true);
         history.push("/");
@@ -195,8 +193,14 @@ function App() {
   }
 
   function handleSignOut(e) {
-    localStorage.removeItem('jwt');
-    history.push('/sign-in')
+    auth.logout().then(() => {
+      localStorage.removeItem('auth');
+      history.push('/sign-in');
+    })
+    .catch(() => {
+      setOK(false);
+      setTooltipPopupOpen(true);
+    });
   }
 
   return (

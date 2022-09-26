@@ -5,11 +5,11 @@ import { CurrentUserContext } from "./CurrentUserContext";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
   const user = React.useContext(CurrentUserContext);
-  const isOwn = card.owner._id === user._id;
+  const isOwn = card.owner === user._id;
   const btnRemoveDisabledClass = !isOwn ? 'card__remove_disabled' : "";
-  const isLiked = card.likes.some(i =>  i._id === user._id );
+  const isLiked = card.likes.some(i =>  i === user._id );
   const btnLikeClass = isLiked ? "card__btn-like_active" : "";
-  
+
 
   function handleClick() {
     onCardClick(card);

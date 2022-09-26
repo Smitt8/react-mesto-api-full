@@ -1,7 +1,7 @@
 const { celebrate, Joi } = require('celebrate');
 const express = require('express');
 const {
-  createUser, getUsers, getUserById, updUser, updAvatar, login, getMe,
+  createUser, getUsers, getUserById, updUser, updAvatar, login, getMe, logout,
 } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const { urlRegex } = require('../utils/consts');
@@ -45,6 +45,7 @@ usersRoutes.patch('/users/me/avatar', celebrate({
     avatar: Joi.string().required().regex(urlRegex),
   }),
 }), updAvatar);
+usersRoutes.delete('/signout', logout);
 
 module.exports = {
   usersRoutes,

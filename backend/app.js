@@ -1,7 +1,9 @@
+require('dotenv').config();
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errorHandler } = require('./middlewares/errors');
 
 const { cardsRoutes } = require('./routes/cards');
@@ -9,7 +11,7 @@ const { usersRoutes } = require('./routes/users');
 const ErrorNotFound = require('./utils/ErrorNotFound');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -23,6 +25,12 @@ async function main() {
   mongoose.set('toJSON', { useProjection: true });
 
   app.use(express.json());
+  app.use(
+    cors({
+      origin: 'http://localhost:3000',
+      credentials: true,
+    }),
+  );
   app.use(cookieParser());
 
   app.use(requestLogger);

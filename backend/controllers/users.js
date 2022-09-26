@@ -6,6 +6,8 @@ const ErrorNotFound = require('../utils/ErrorNotFound');
 const ErrorServerError = require('../utils/ErrorServerError');
 const checkErr = require('../utils/utils');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const updUserSettings = {
   new: true,
   runValidators: true,
@@ -86,7 +88,7 @@ const login = (req, res, next) => {
           if (isValid) {
             const token = jwt.sign(
               { _id: user._id },
-              'some-secret-key',
+              NODE_ENV === 'production' ? JWT_SECRET : 'some-secret-key',
               { expiresIn: '7d' },
             );
 
@@ -104,6 +106,11 @@ const login = (req, res, next) => {
     .catch((err) => checkErr(err, next));
 };
 
+const logout = (req, res) => {
+  res.clearCookie('jwt');
+  return res.send({ message: 'Выход выполнен' });
+};
+
 module.exports = {
   getUsers,
   getUserById,
@@ -112,4 +119,5 @@ module.exports = {
   updUser,
   updAvatar,
   login,
+  logout,
 };

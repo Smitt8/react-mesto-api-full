@@ -2,7 +2,7 @@ import { serverConfig } from "./constants";
 
 class Api {
   constructor({ url, cohort, headers}) {
-    this._url = `${url}/v1/${cohort}`;
+    this._url = `${url}`;
     this._headers = headers;
   }
 
@@ -16,7 +16,9 @@ class Api {
   getUserInfo = () => {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
-    })
+      credentials: 'include',
+    },
+    )
       .then((result) => {
         return this._checkResult(result);
       })
@@ -30,6 +32,7 @@ class Api {
         name: name,
         about: about,
       }),
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -43,6 +46,7 @@ class Api {
       body: JSON.stringify({
         avatar: avatar,
       }),
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -52,6 +56,7 @@ class Api {
   getCards = () => {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -66,6 +71,7 @@ class Api {
         name: name,
         link: link,
       }),
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -76,6 +82,7 @@ class Api {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -87,6 +94,7 @@ class Api {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: method,
       headers: this._headers,
+      credentials: 'include',
     })
       .then((result) => {
         return this._checkResult(result);
@@ -99,6 +107,5 @@ export const api = new Api({
   cohort: serverConfig.cohort,
   headers: {
     "Content-type": "application/json",
-    authorization: `${serverConfig.token}`,
   },
 });
