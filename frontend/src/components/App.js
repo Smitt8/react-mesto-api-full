@@ -167,9 +167,9 @@ function App() {
       .login(data)
       .then((res) => {
         localStorage.setItem('auth', true);
-        setUserEmail(data.username);
+        setUserEmail(res.email);
         setLoggedIn(true);
-        history.push("/");
+        history.go("/");
       })
       .catch((err) => {
         setOK(false);

@@ -44,11 +44,11 @@ async function main() {
   app.use(usersRoutes);
   app.use(cardsRoutes);
 
-  app.use(errorLogger);
-
   app.use((req, res, next) => {
     next(new ErrorNotFound('Страница не найдена'));
   });
+  app.use(errorLogger);
+
   app.use(errors());
   app.use(errorHandler);
 
