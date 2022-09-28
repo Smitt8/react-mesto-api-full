@@ -11,7 +11,7 @@ const { usersRoutes } = require('./routes/users');
 const ErrorNotFound = require('./utils/ErrorNotFound');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3001, FRONT_URL = 'http://localhost:3000' } = process.env;
+const { PORT = 3000, FRONT_URL = 'http://localhost:3000' } = process.env;
 
 const app = express();
 
