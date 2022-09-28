@@ -24,7 +24,7 @@ export const popupTypesConfig = {
 };
 
 export const serverConfig = {
-  url: 'https://api.smitt8.nomorepartiesxyz.ru',
+  url: 'http://api.smitt8.nomorepartiesxyz.ru',
   //url: 'http://localhost:3001',
   token: '62ca9a86-8eaa-474b-a40e-721345246b87',
   cohort: 'cohort-43'
