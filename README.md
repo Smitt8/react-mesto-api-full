@@ -4,7 +4,7 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-* IP 62.84.123.222
-* Frontend https://smitt8.nomorepartiesxyz.ru
-* Backend https://api.smitt8.nomorepartiesxyz.ru
+IP 62.84.123.222
+Frontend https://smitt8.nomorepartiesxyz.ru
+Backend https://api.smitt8.nomorepartiesxyz.ru
 
